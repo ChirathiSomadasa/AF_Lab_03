@@ -2,13 +2,13 @@ const fs = require('fs');
 const http = require('http');
 const https = require('https');
 
-//Read file
+// Read file
 fs.readFile('file.txt', 'utf8', function (err, data) {
  if (err) throw err;
  console.log(data);
 });
 
-//Write to file
+// Write to file
 fs.writeFile('file.txt', 'Hello World!', function (err) {
     if (err) throw err;
     console.log('File saved!');
@@ -21,7 +21,7 @@ http.createServer(function (req, res) {
  res.end();
 }).listen(8080);
 
-//Making an HTTP request
+// Making an HTTP request
 https.get('https://jsonplaceholder.typicode.com/posts/1', (resp) => {
  let data = '';
  resp.on('data', (chunk) => {
@@ -34,20 +34,33 @@ https.get('https://jsonplaceholder.typicode.com/posts/1', (resp) => {
  console.log("Error: " + err.message);
 });
 
-//Using a module
+// Using a module
 const myModule = require('./my_module.js');
 console.log(myModule.myFunction());
 
-//Promises
+// Promises
 const myPromise = new Promise((resolve, reject) => {
+    let condition = true; // Define condition
     if (condition) {
-    resolve('Success!');
+        resolve('Success!');
     } else {
-    reject('Failure!');
+        reject('Failure!');
     }
-   });
-   myPromise.then((result) => {
+});
+
+myPromise.then((result) => {
     console.log(result);
-   }).catch((error) => {
+}).catch((error) => {
     console.log(error);
-   });
+});
+
+// Async/Await
+async function myFunction() {
+    try {
+        const result = await myPromise;
+        console.log(result);
+    } catch (error) {
+        console.log(error);
+    }
+}
+myFunction();
